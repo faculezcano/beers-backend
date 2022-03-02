@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BeersController } from './beers.controller';
 import { BeersService } from './beers.service';
-import { Beer } from "./schemas/beer.schema";
 import { CreateBeerDto } from "./dto/create-beer.dto";
 
 describe('BeersController', () => {
