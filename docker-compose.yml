@@ -9,8 +9,11 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
+    depends_on:
+      - mongo
   mongo:
     image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: beers
-      MONGO_INITDB_ROOT_PASSWORD: beers
+    #environment:
+      #MONGO_INITDB_DATABASE: beers
+      #MONGO_INITDB_ROOT_USERNAME: beers
+      #MONGO_INITDB_ROOT_PASSWORD: beers

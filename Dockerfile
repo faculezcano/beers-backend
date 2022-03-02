@@ -10,4 +10,4 @@ RUN npm install
 
 COPY . ./
 
-CMD nest start --host 0.0.0.0
+CMD nest start
