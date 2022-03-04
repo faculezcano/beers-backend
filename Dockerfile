@@ -10,4 +10,4 @@ RUN npm install
 
 COPY . ./
 
-CMD nest start
+ENTRYPOINT '.docker/init.sh'
