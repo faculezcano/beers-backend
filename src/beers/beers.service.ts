@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBeerDto } from './dto/create-beer.dto';
 import { UpdateBeerDto } from './dto/update-beer.dto';
-import { Beer, BeerDocument } from "./schemas/beer.schema";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Beer, BeerDocument } from './schemas/beer.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class BeersService {

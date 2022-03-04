@@ -1,12 +1,12 @@
-version: "3.7"
+version: '3.7'
 
 services:
   backend:
     build:
-      context: "."
+      context: '.'
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
     depends_on:
@@ -14,6 +14,6 @@ services:
   mongo:
     image: mongo
     #environment:
-      #MONGO_INITDB_DATABASE: beers
-      #MONGO_INITDB_ROOT_USERNAME: beers
-      #MONGO_INITDB_ROOT_PASSWORD: beers
+    #MONGO_INITDB_DATABASE: beers
+    #MONGO_INITDB_ROOT_USERNAME: beers
+    #MONGO_INITDB_ROOT_PASSWORD: beers

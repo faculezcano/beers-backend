@@ -1,15 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BeersService } from './beers.service';
-import { Beer } from "./schemas/beer.schema";
-import { Model } from "mongoose";
-import { getModelToken } from "@nestjs/mongoose";
+import { Beer } from './schemas/beer.schema';
+import { Model } from 'mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 
 const mockBeer = {
   name: 'APA',
-  ingredients: [
-    'cebada',
-    'lúpulo',
-  ]
+  ingredients: ['cebada', 'lúpulo'],
 };
 
 describe('BeersService', () => {
@@ -19,17 +16,11 @@ describe('BeersService', () => {
   const mockBeers = [
     {
       name: 'IPA',
-      ingredients: [
-        'cebada',
-        'lúpulo',
-      ],
-    },{
+      ingredients: ['cebada', 'lúpulo'],
+    },
+    {
       name: 'Stout',
-      ingredients: [
-        'cebada',
-        'cebada tostada',
-        'lúpulo',
-      ],
+      ingredients: ['cebada', 'cebada tostada', 'lúpulo'],
     },
   ];
 

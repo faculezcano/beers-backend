@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
-import { AuthService } from "./auth.service";
-import { UsersService } from "../users/users.service";
+import { AuthService } from './auth.service';
+import { UsersService } from '../users/users.service';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -18,9 +18,9 @@ describe('AuthController', () => {
             generateToken: jest.fn().mockResolvedValue({
               access_token: 'test_token',
             }),
-          }
-        }
-      ]
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
@@ -36,6 +36,6 @@ describe('AuthController', () => {
       expect(controller.login({})).resolves.toEqual({
         access_token: 'test_token',
       });
-    })
-  })
+    });
+  });
 });
