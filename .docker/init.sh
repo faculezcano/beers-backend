@@ -2,4 +2,4 @@
 
 npm run seed
 
-nest start
+npm run start:dev

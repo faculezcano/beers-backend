@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BeersController } from './beers.controller';
 import { BeersService } from './beers.service';
 import { CreateBeerDto } from './dto/create-beer.dto';
+import { LogsModule } from '../logs/logs.module';
+import { LogsService } from '../logs/logs.service';
 
 describe('BeersController', () => {
   let controller: BeersController;
@@ -23,6 +25,10 @@ describe('BeersController', () => {
       controllers: [BeersController],
       providers: [
         {
+          provide: LogsService,
+          useValue: {},
+        },
+        {
           provide: BeersService,
           useValue: {
             findAll: jest.fn().mockResolvedValue([
@@ -36,6 +42,19 @@ describe('BeersController', () => {
               },
             ]),
             create: jest.fn().mockResolvedValue(createBeerDto),
+            search: jest.fn().mockResolvedValue([]),
+            findOne: jest.fn().mockResolvedValue({
+              _id: 1,
+              name: 'IPA',
+            }),
+            update: jest.fn().mockResolvedValue({
+              _id: 1,
+              name: 'IPA',
+            }),
+            remove: jest.fn().mockResolvedValue({
+              _id: 1,
+              name: 'IPA',
+            }),
           },
         },
       ],
@@ -62,7 +81,7 @@ describe('BeersController', () => {
 
   describe('findAll', () => {
     it('should return an array of beers', function () {
-      expect(controller.findAll()).resolves.toEqual([
+      expect(controller.findAll({})).resolves.toEqual([
         {
           name: 'IPA',
           ingredients: ['cebada', 'lúpulo'],
@@ -72,6 +91,39 @@ describe('BeersController', () => {
           ingredients: ['cebada', 'cebada tostada', 'lúpulo'],
         },
       ]);
+    });
+  });
+
+  describe('search', () => {
+    it('should return an array of keywords', function () {
+      expect(controller.search({ q: 'test' })).resolves.toEqual([]);
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return a beer', function () {
+      expect(controller.findOne('1')).resolves.toEqual({
+        _id: 1,
+        name: 'IPA',
+      });
+    });
+  });
+
+  describe('update', () => {
+    it('should update and return a beer', function () {
+      expect(controller.update('1', {})).resolves.toEqual({
+        _id: 1,
+        name: 'IPA',
+      });
+    });
+  });
+
+  describe('remove', () => {
+    it('should remove and return a beer', function () {
+      expect(controller.remove('1')).resolves.toEqual({
+        _id: 1,
+        name: 'IPA',
+      });
     });
   });
 });

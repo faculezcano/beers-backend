@@ -38,4 +38,19 @@ describe('AuthController', () => {
       });
     });
   });
+
+  describe('getUser', () => {
+    it('should return loged in user', async () => {
+      const user = await controller.user({
+        user: {
+          id: 1,
+          user: 'test',
+        },
+      });
+      expect(user).toStrictEqual({
+        id: 1,
+        user: 'test',
+      });
+    });
+  });
 });

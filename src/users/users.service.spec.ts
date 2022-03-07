@@ -15,4 +15,15 @@ describe('UsersService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('findOne', () => {
+    it('should return an user', async () => {
+      const user = await service.findOne('admin@example.com');
+      expect(user).toStrictEqual({
+        id: 1,
+        email: 'admin@example.com',
+        password: 'admin',
+      });
+    });
+  });
 });

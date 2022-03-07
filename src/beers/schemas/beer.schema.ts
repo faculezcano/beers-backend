@@ -11,6 +11,7 @@ export class Beer {
     required: true,
   })
   name: string;
+  ingredients: any;
 }
 
 export const BeerSchema = SchemaFactory.createForClass(Beer);
