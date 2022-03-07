@@ -128,6 +128,103 @@ export class BeersService {
     });
   }
 
+  async getTopUsedIngredients() {
+    let ingredients = [];
+
+    const maltQuery = this.beerModel.aggregate([
+      {
+        $unwind: {
+          path: '$ingredients.malt',
+        },
+      },
+      {
+        $group: {
+          _id: '$ingredients.malt.name',
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $sort: {
+          count: -1,
+        },
+      },
+      {
+        $limit: 10,
+      },
+    ]);
+
+    ingredients = (await maltQuery.exec()).map((item) => ({
+      name: item._id,
+      type: 'malt',
+      count: item.count,
+    }));
+
+    let hopsQuery = this.beerModel.aggregate([
+      {
+        $unwind: '$ingredients.hops',
+      },
+      {
+        $group: {
+          _id: '$ingredients.hops.name',
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $sort: {
+          count: -1,
+        },
+      },
+      {
+        $limit: 10,
+      },
+    ]);
+    ingredients = ingredients.concat(
+      (await hopsQuery.exec()).map((item) => ({
+        name: item._id,
+        type: 'hops',
+        count: item.count,
+      })),
+    );
+
+    let yeastQuery = this.beerModel.aggregate([
+      {
+        $group: {
+          _id: '$ingredients.yeast',
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $sort: {
+          count: -1,
+        },
+      },
+      {
+        $limit: 10,
+      },
+    ]);
+
+    ingredients = ingredients.concat(
+      (await yeastQuery.exec()).map((item) => ({
+        name: item._id,
+        type: 'yeast',
+        count: item.count,
+      })),
+    );
+
+    return ingredients
+      .filter((item, index, self) => {
+        return index === self.findIndex((b) => item.name == b.name);
+      })
+      .sort((a, b) => b.count - a.count)
+      .splice(0, 10);
+  }
+
   async findOne(id: string) {
     return await this.beerModel.findOne({ _id: id }).exec();
   }

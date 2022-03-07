@@ -3,6 +3,8 @@ import { BeersService } from './beers.service';
 import { Beer } from './schemas/beer.schema';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
+import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+import { randomInt } from 'crypto';
 
 const mockBeer = {
   name: 'APA',
@@ -40,6 +42,7 @@ describe('BeersService', () => {
             findOneAndRemove: jest.fn(),
             exec: jest.fn(),
             sort: jest.fn(),
+            aggregate: jest.fn(),
           },
         },
       ],
@@ -120,6 +123,27 @@ describe('BeersService', () => {
       } as any);
       const beer = await service.remove(1);
       expect(beer).toEqual(mockBeer);
+    });
+  });
+
+  let result = [];
+  describe('getTopUsedIngredients', () => {
+    it('should get top 10 most used ingredients', async () => {
+      const topIngredientsSpy = jest.spyOn(model, 'aggregate').mockReturnValue({
+        exec: jest.fn(async () => {
+          let results = [];
+          for (let i = 0; i < 10; i++) {
+            results.push({
+              _id: randomStringGenerator(),
+              count: i,
+            });
+          }
+
+          return results;
+        }),
+      } as any);
+      await service.getTopUsedIngredients();
+      expect(topIngredientsSpy).toBeCalled();
     });
   });
 });

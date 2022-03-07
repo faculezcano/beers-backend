@@ -37,6 +37,11 @@ export class BeersController {
     return this.beersService.search(query.q);
   }
 
+  @Get('topUsedIngredients')
+  getTopUsedIngredients() {
+    return this.beersService.getTopUsedIngredients();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.beersService.findOne(id);

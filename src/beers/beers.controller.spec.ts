@@ -55,6 +55,7 @@ describe('BeersController', () => {
               _id: 1,
               name: 'IPA',
             }),
+            getTopUsedIngredients: jest.fn().mockResolvedValue([]),
           },
         },
       ],
@@ -124,6 +125,12 @@ describe('BeersController', () => {
         _id: 1,
         name: 'IPA',
       });
+    });
+  });
+
+  describe('getTopUsedIngredients', () => {
+    it('should get top 10 most used ingredients', function () {
+      expect(controller.getTopUsedIngredients()).resolves.toEqual([]);
     });
   });
 });
