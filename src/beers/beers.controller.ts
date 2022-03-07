@@ -14,10 +14,10 @@ import { BeersService } from './beers.service';
 import { CreateBeerDto } from './dto/create-beer.dto';
 import { UpdateBeerDto } from './dto/update-beer.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { LogInterceptor } from '../logs/log.interceptor';
+import { LoggingInterceptor } from '../logging/logging.interceptor';
 
 @UseGuards(AuthGuard('jwt'))
-@UseInterceptors(LogInterceptor)
+@UseInterceptors(LoggingInterceptor)
 @Controller('beers')
 export class BeersController {
   constructor(private readonly beersService: BeersService) {}

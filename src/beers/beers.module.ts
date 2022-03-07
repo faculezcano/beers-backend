@@ -3,22 +3,22 @@ import { BeersService } from './beers.service';
 import { BeersController } from './beers.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Beer, BeerSchema } from './schemas/beer.schema';
-import { LogsModule } from '../logs/logs.module';
+import { LoggingModule } from '../logging/logging.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LogInterceptor } from '../logs/log.interceptor';
-import { Log, LogSchema } from '../logs/schemas/log.schema';
+import { LoggingInterceptor } from '../logging/logging.interceptor';
+import { Log, LogSchema } from '../logging/schemas/log.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Beer.name, schema: BeerSchema }]),
-    LogsModule,
+    LoggingModule,
   ],
   controllers: [BeersController],
   providers: [
     BeersService,
     {
       provide: APP_INTERCEPTOR,
-      useClass: LogInterceptor,
+      useClass: LoggingInterceptor,
     },
   ],
 })

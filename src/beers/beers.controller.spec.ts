@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BeersController } from './beers.controller';
 import { BeersService } from './beers.service';
 import { CreateBeerDto } from './dto/create-beer.dto';
-import { LogsModule } from '../logs/logs.module';
-import { LogsService } from '../logs/logs.service';
+import { LoggingModule } from '../logging/logging.module';
+import { LoggingService } from '../logging/logging.service';
 
 describe('BeersController', () => {
   let controller: BeersController;
@@ -25,7 +25,7 @@ describe('BeersController', () => {
       controllers: [BeersController],
       providers: [
         {
-          provide: LogsService,
+          provide: LoggingService,
           useValue: {},
         },
         {
